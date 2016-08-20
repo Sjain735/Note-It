@@ -51,21 +51,21 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         pager.setAdapter(madapter);
         */
 
-        /*Getting Names of Notes
-        DBHandler db = new DBHandler(getApplicationContext());
-        Text1 = db.get_name();
-
-        list1 = (ListView) findViewById(R.id.main_list);
-        Adapter1 adapter = new Adapter1(getApplicationContext(),Text1);
-        list1.setAdapter(adapter);
-        */
     }
 
     @Override
     protected void onResume(){
         super.onResume();
 
-        //Displaying Notes
+        //Getting Names of Notes
+        DBHandler db = new DBHandler(getApplicationContext());
+        Text1 = db.get_name();
+
+        list1 = (ListView) findViewById(R.id.main_list);
+        Adapter1 adapter = new Adapter1(getApplicationContext(),Text1);
+        list1.setAdapter(adapter);
+
+        /*Displaying Notes
         DBHandler db = new DBHandler(getApplicationContext());
 
         String [] Name = db.get_name();
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         for (int i=0;i<db.get_count();i++){
             text.setText(Name[i]);
             list1.addView(text);
-        }
+        }*/
 
     }
 
