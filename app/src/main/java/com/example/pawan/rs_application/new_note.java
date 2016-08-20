@@ -9,11 +9,13 @@ import android.widget.LinearLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class new_note extends AppCompatActivity {
 
     LinearLayout linear1;
+    EditText etext1,etext2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,39 +24,40 @@ public class new_note extends AppCompatActivity {
 
         linear1 = (LinearLayout) findViewById(R.id.new_note_linear);
 
-        EditText etext1 = new EditText(getApplicationContext());
+        etext1 = new EditText(getApplicationContext());
         etext1.setHint("Enter Name");
         etext1.setHintTextColor(Color.WHITE);
         etext1.setTextColor(Color.BLACK);
         linear1.addView(etext1);
-        etext1.getText();
 
-        EditText etext2 = new EditText(getApplicationContext());
-        etext1.setHint("Enter Text");
-        etext1.setHintTextColor(Color.WHITE);
-        etext1.setTextColor(Color.BLACK);
+        etext2 = new EditText(getApplicationContext());
+        etext2.setHint("Enter Text");
+        etext2.setHintTextColor(Color.WHITE);
+        etext2.setTextColor(Color.BLACK);
         linear1.addView(etext2);
-        etext1.getText();
 
-        String date = "04/12/1996";
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-        Date date_use = null;
-        try {
-            date_use = sdf.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    }
 
-        String time = String.valueOf(System.currentTimeMillis());
+    @Override
+    public  void onBackPressed(){
+        super.onBackPressed();
 
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf_date = new SimpleDateFormat("DD-MMM-yyyy");
+        SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm:SS");
+        String time = sdf_time.format(c.getTime());
+        String date = sdf_date.format(c.getTime());
 
-        Log.d("ADD_name", String.valueOf(etext1));
-        Log.d("ADD_text", String.valueOf(etext2));
-        Log.d("ADD_time",time);
-        Log.d("ADD_date", String.valueOf(date_use));
+        String name = String.valueOf(etext1.getText());
+        String text = String.valueOf(etext2.getText());
+
+        Log.d("ADD_name", name);
+        Log.d("ADD_text", text);
+        Log.d("ADD_time", time);
+        Log.d("ADD_date", date);
 
         DBHandler db = new DBHandler(getApplicationContext());
-        db.new_note(String.valueOf(etext1),String.valueOf(etext2),time, String.valueOf(date_use));
+        db.new_note(name,text,time, date);
     }
 
 }

@@ -5,6 +5,9 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +37,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         setContentView(R.layout.activity_main);
 
 
-
         add = (ImageView) findViewById(R.id.add_note);
         if (add != null) {
             add.setOnClickListener(this);
@@ -43,13 +45,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         if (del != null) {
             del.setOnClickListener(this);
         }
-
-        /*
-        ViewPager pager;
-        pager = (ViewPager) findViewById(R.id.pager_main);
-        MyPagerAdapter madapter = new MyPagerAdapter(getSupportFragmentManager());
-        pager.setAdapter(madapter);
-        */
 
     }
 
@@ -61,21 +56,18 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         DBHandler db = new DBHandler(getApplicationContext());
         Text1 = db.get_name();
 
-        list1 = (ListView) findViewById(R.id.main_list);
+       /* list1 = (ListView) findViewById(R.id.main_list);
         Adapter1 adapter = new Adapter1(getApplicationContext(),Text1);
         list1.setAdapter(adapter);
+        */
 
-        /*Displaying Notes
-        DBHandler db = new DBHandler(getApplicationContext());
+        RecyclerView r_list = (RecyclerView) findViewById(R.id.main_recycler_view);
+        RAdapter rAdapter = new RAdapter(getApplicationContext());
+        r_list.setAdapter(rAdapter);
 
-        String [] Name = db.get_name();
-        list1 = (ListView) findViewById(R.id.main_list);
-        TextView text = new TextView(getApplicationContext());
-
-        for (int i=0;i<db.get_count();i++){
-            text.setText(Name[i]);
-            list1.addView(text);
-        }*/
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        r_list.setLayoutManager(llm);
+        r_list.setItemAnimator(new DefaultItemAnimator());
 
     }
 
@@ -85,15 +77,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         {
             Intent intent = new Intent(this,new_note.class);
             startActivity(intent);
-
-            /*EditText etext1 = new EditText(getApplicationContext());
-            etext1.getText();
-            linear1.addView(etext1);
-            Log.d("ADD_text", String.valueOf(etext1));
-            Log.d("ADD_time", String.valueOf(System.currentTimeMillis()));
-
-            DBHandler db = new DBHandler(getApplicationContext());
-            db.new_note("try", String.valueOf(etext1)); */
 
         }else if (v.getId()==R.id.del_note){
             Log.d("DEL","del working or not");
