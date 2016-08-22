@@ -51,11 +51,6 @@ public class new_note extends AppCompatActivity {
         String name = String.valueOf(etext1.getText());
         String text = String.valueOf(etext2.getText());
 
-        Log.d("ADD_name", name);
-        Log.d("ADD_text", text);
-        Log.d("ADD_time", time);
-        Log.d("ADD_date", date);
-
         DBHandler db = new DBHandler(getApplicationContext());
         db.new_note(name,text,time, date);
     }

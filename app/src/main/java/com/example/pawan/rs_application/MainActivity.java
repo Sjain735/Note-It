@@ -21,13 +21,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    String[] Text1;
-    int[] image = {R.drawable.coffee2, R.drawable.dinner, R.drawable.coffee, R.drawable.dinner2, R.drawable.hotel,
-            R.drawable.hotel, R.drawable.hotel, R.drawable.hotel};
-
-    ListView list1;
     ImageView add;
     ImageView del;
+    RAdapter rAdapter;
     //NavigationView nv = (NavigationView) findViewById(R.id.nav_view);
 
 
@@ -46,29 +42,37 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             del.setOnClickListener(this);
         }
 
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-        //Getting Names of Notes
-        DBHandler db = new DBHandler(getApplicationContext());
-        Text1 = db.get_name();
-
-       /* list1 = (ListView) findViewById(R.id.main_list);
-        Adapter1 adapter = new Adapter1(getApplicationContext(),Text1);
-        list1.setAdapter(adapter);
-        */
-
         RecyclerView r_list = (RecyclerView) findViewById(R.id.main_recycler_view);
-        RAdapter rAdapter = new RAdapter(getApplicationContext());
+        rAdapter = new RAdapter(getApplicationContext());
         r_list.setAdapter(rAdapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         r_list.setLayoutManager(llm);
         r_list.setItemAnimator(new DefaultItemAnimator());
 
+        r_list.addOnItemTouchListener(
+          new R_ItemClickListener(getApplicationContext(), r_list,new R_ItemClickListener.OnItemClickListener() {
+
+            @Override
+                public void onItemClick(View view, int position) {
+
+                Intent disp_note = new Intent(getApplicationContext(),open_note.class);
+                disp_note.putExtra("Position",position);
+                startActivity(disp_note);
+            }
+
+            @Override
+                public void onLongItemClick(View view, int position) {
+                // do whatever
+            }
+        }));
+
+    }//End of onCreate
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        rAdapter.notifyDataSetChanged();
     }
 
     @Override

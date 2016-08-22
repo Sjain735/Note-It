@@ -13,8 +13,10 @@ import android.widget.TextView;
 public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
     public int Type_Text = 1;
+    Context r_context;
 
     public RAdapter (Context context){
+        r_context=context;
     }
 
     @Override
@@ -31,15 +33,22 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder,final int position) {
+        String[] Text_name;
+
+        holder.setIsRecyclable(false);
 
         if(holder.HolderId==1){
-            holder.Text.setText("Working!");
+            DBHandler db = new DBHandler(r_context);
+            Text_name = db.get_name();
+            holder.Text.setText(Text_name[position]);
         }
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        DBHandler db = new DBHandler(r_context);
+        int note_count = db.get_count();
+        return note_count;
     }
 
     @Override
@@ -60,5 +69,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
             }//If
 
         }//Constructor
+
     }//ViewHolder Class
-}
+
+}//RAdapter Class
