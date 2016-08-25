@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         nv = (NavigationView) findViewById(R.id.nav_view);
         if (nv != null) {
-            nv.setOnClickListener(this);
+            nv.setNavigationItemSelectedListener(this);
         }
 
         add = (FloatingActionButton) findViewById(R.id.add_note);
@@ -105,12 +105,12 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             Intent intent = new Intent(this,MainActivity.class);
             startActivity(intent);
 
-        }/*else if(id==R.id.nav_trash){
+        }else if(id==R.id.nav_trash){
 
-            Intent intent = new Intent(this,new_note.class);
+            Intent intent = new Intent(this,deleted.class);
             startActivity(intent);
 
-        }else if(id==R.id.nav_settings){
+        }/*else if(id==R.id.nav_settings){
 
             Intent intent = new Intent(this,new_note.class);
             startActivity(intent);
