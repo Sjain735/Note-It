@@ -10,7 +10,7 @@
         android:layout_height="50dp"
         android:scaleType="fitXY"
         android:id="@+id/image"
-        android:src="@drawable/coffee2"
+        android:src="@drawable/hotel"
         />
     
     <TextView

@@ -39,7 +39,7 @@ public class Del_RAdapter extends RecyclerView.Adapter<Del_RAdapter.ViewHolder> 
 
         if(holder.HolderId==1){
             DBHandler db = new DBHandler(r_context);
-            Text_name = db.get_name();
+            Text_name = db.get_del_name();
             holder.Text.setText(Text_name[position]);
         }
     }
@@ -48,6 +48,7 @@ public class Del_RAdapter extends RecyclerView.Adapter<Del_RAdapter.ViewHolder> 
     public int getItemCount() {
         DBHandler db = new DBHandler(r_context);
         int note_count = db.get_count();
+        db.close();
         return note_count;
     }
 
@@ -57,7 +58,6 @@ public class Del_RAdapter extends RecyclerView.Adapter<Del_RAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         int HolderId; TextView Text;
 
         public ViewHolder(View itemView, int View_Type, Context context) {

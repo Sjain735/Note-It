@@ -48,6 +48,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
     public int getItemCount() {
         DBHandler db = new DBHandler(r_context);
         int note_count = db.get_count();
+        db.close();
         return note_count;
     }
 

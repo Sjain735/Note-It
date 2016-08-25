@@ -3,42 +3,30 @@ package com.example.pawan.rs_application;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.Toast;
-
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     FloatingActionButton add;
     RAdapter rAdapter;
-    NavigationView nv;
-
+    NavigationView nv=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         nv = (NavigationView) findViewById(R.id.nav_view);
         if (nv != null) {
             nv.setNavigationItemSelectedListener(this);
         }
-
+*/
         add = (FloatingActionButton) findViewById(R.id.add_note);
         if (add != null) {
             add.setOnClickListener(this);

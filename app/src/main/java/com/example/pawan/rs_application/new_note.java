@@ -64,9 +64,7 @@ public class new_note extends AppCompatActivity implements View.OnClickListener 
                 save_grey.setVisibility(View.VISIBLE);
                 delay(2);
                 save_grey.setVisibility(View.GONE);
-            }
-
-*/
+            }*/
             Calendar c = Calendar.getInstance();
             SimpleDateFormat sdf_date = new SimpleDateFormat("dd-MMM-yyyy");
             SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
@@ -79,6 +77,8 @@ public class new_note extends AppCompatActivity implements View.OnClickListener 
             DBHandler db = new DBHandler(getApplicationContext());
             db.new_note(name,text,time, date);
             db.close();
+
+            Toast.makeText(this,"Note Saved!",Toast.LENGTH_SHORT).show();
 
         }//If
     }//onClickListener
