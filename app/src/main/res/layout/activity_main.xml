@@ -21,25 +21,15 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:id="@+id/add_note"
-            android:src="@drawable/ic_note_add_black_24dp"
+            android:src="@drawable/ic_add_white_24dp"
             android:clickable="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="100dp" />
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/del_note"
-            android:src="@drawable/ic_delete_black_24dp_2x"
-            android:clickable="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="50dp" />
+            android:layout_margin="32dp"/>
 
     </RelativeLayout>
 

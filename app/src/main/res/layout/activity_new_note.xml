@@ -11,6 +11,26 @@
     android:id="@+id/new_note_rel"
     android:background="@color/addColor">
 
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/new_save"
+        android:src="@drawable/ic_save_white_24dp"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/new_save_grey"
+        android:scaleType="centerCrop"
+        android:alpha="0.5"
+        android:src="@drawable/grey"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

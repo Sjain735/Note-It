@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBHandler extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 6;
+    private static final int DB_VERSION = 7;
     private static final String DB_NAME = "DATABASE";
     private static final String TABLE_NOTES = "NOTES";
 
@@ -80,7 +80,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    public String[][] get_note() {
+    public String[][] get_notes() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String data[][];
@@ -102,6 +102,32 @@ public class DBHandler extends SQLiteOpenHelper {
         csr.close();
         db.close();
         return data;
+    }
+
+    public String[] get_single_note(int position){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] pos_note = new String[4];
+        String query = "SELECT * FROM " + TABLE_NOTES;
+        Cursor csr = db.rawQuery(query, null);
+        csr.moveToFirst();
+        int count = csr.getCount();
+        int i = 0;
+        while (count > 0) {
+            if(i==position){
+                pos_note[0] = csr.getString(0);
+                pos_note[1] = csr.getString(1);
+                pos_note[2] = csr.getString(2);
+                pos_note[3] = csr.getString(3);
+            }
+
+            i++;
+            csr.moveToNext();
+            count--;
+        }
+        csr.close();
+        db.close();
+        return pos_note;
     }
 
     public String[] get_name() {

@@ -1,6 +1,7 @@
 package com.example.pawan.rs_application;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,15 +17,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    ImageView add;
-    ImageView del;
+    FloatingActionButton add;
     RAdapter rAdapter;
-    //NavigationView nv = (NavigationView) findViewById(R.id.nav_view);
+    NavigationView nv;
 
 
     @Override
@@ -32,40 +34,49 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        nv = (NavigationView) findViewById(R.id.nav_view);
+        if (nv != null) {
+            nv.setOnClickListener(this);
+        }
 
-        add = (ImageView) findViewById(R.id.add_note);
+        add = (FloatingActionButton) findViewById(R.id.add_note);
         if (add != null) {
             add.setOnClickListener(this);
         }
-        del = (ImageView) findViewById(R.id.del_note);
-        if (del != null) {
-            del.setOnClickListener(this);
+
+
+        final RecyclerView r_list = (RecyclerView) findViewById(R.id.main_recycler_view);
+        rAdapter = new RAdapter(getApplicationContext());
+        if (r_list != null) {
+            r_list.setAdapter(rAdapter);
         }
 
-        RecyclerView r_list = (RecyclerView) findViewById(R.id.main_recycler_view);
-        rAdapter = new RAdapter(getApplicationContext());
-        r_list.setAdapter(rAdapter);
-
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-        r_list.setLayoutManager(llm);
-        r_list.setItemAnimator(new DefaultItemAnimator());
+        if (r_list != null) {
+            r_list.setLayoutManager(llm);
+        }
+        if (r_list != null) {
+            r_list.setItemAnimator(new DefaultItemAnimator());
+        }
 
-        r_list.addOnItemTouchListener(
-          new R_ItemClickListener(getApplicationContext(), r_list,new R_ItemClickListener.OnItemClickListener() {
+        if (r_list != null) {
+            r_list.addOnItemTouchListener(
+              new R_ItemClickListener(getApplicationContext(), r_list,new R_ItemClickListener.OnItemClickListener() {
 
-            @Override
-                public void onItemClick(View view, int position) {
+                @Override
+                    public void onItemClick(View view, int position) {
 
-                Intent disp_note = new Intent(getApplicationContext(),open_note.class);
-                disp_note.putExtra("Position",position);
-                startActivity(disp_note);
-            }
+                    Intent disp_note = new Intent(getApplicationContext(),open_note.class);
+                    disp_note.putExtra("Position",position);
+                    startActivity(disp_note);
+                }
 
-            @Override
-                public void onLongItemClick(View view, int position) {
-                // do whatever
-            }
-        }));
+                @Override
+                    public void onLongItemClick(View view, int position) {
+
+                }
+            }));
+        }
 
     }//End of onCreate
 
@@ -81,29 +92,35 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         {
             Intent intent = new Intent(this,new_note.class);
             startActivity(intent);
-
-        }else if (v.getId()==R.id.del_note){
-            Log.d("DEL","del working or not");
         }
 
     }
-
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-        if (id==R.id.nav_item_1){
 
-        }else if(id==R.id.nav_item_2){
+        if (id==R.id.nav_notes){
 
-        }else if(id==R.id.nav_item_3){
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
 
-        }else if(id==R.id.nav_item_4){
+        }/*else if(id==R.id.nav_trash){
 
-        }
+            Intent intent = new Intent(this,new_note.class);
+            startActivity(intent);
 
+        }else if(id==R.id.nav_settings){
+
+            Intent intent = new Intent(this,new_note.class);
+            startActivity(intent);
+
+        }else if(id==R.id.nav_about){
+
+            Intent intent = new Intent(this,new_note.class);
+            startActivity(intent);
+        }*/
         return true;
-    }
-}
+    }// End of NavigationItem
+}//End of MainActivity
 
