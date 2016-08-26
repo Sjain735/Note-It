@@ -11,10 +11,10 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBHandler extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 9;
+    private static final int DB_VERSION = 10;
     private static final String DB_NAME = "DATABASE";
     private static final String TABLE_NOTES = "NOTES";
-    private static final String DELETED_NOTES = "Deleted Notes";
+    private static final String DELETED_NOTES = "Deleted_Notes";
 
     private static final String KEY_NAME = "Name";
     private static final String KEY_TEXT = "Text";

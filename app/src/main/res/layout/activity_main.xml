@@ -17,8 +17,25 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/main_recycler_view">
+            android:id="@+id/main_recycler_view"
+            android:paddingTop="60dp">
         </android.support.v7.widget.RecyclerView>
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_toolbar"
+                android:minHeight="?attr/actionBarSize"
+                app:titleTextColor="@android:color/holo_orange_light"
+                app:navigationIcon="@drawable/ic_reorder_black_24dp"
+                android:background="?attr/colorPrimary">
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="80dp"
@@ -31,7 +48,6 @@
             android:layout_margin="32dp"/>
 
     </RelativeLayout>
-
 
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"

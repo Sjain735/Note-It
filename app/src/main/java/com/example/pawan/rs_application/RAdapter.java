@@ -41,6 +41,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
             DBHandler db = new DBHandler(r_context);
             Text_name = db.get_name();
             holder.Text.setText(Text_name[position]);
+            db.close();
         }
     }
 

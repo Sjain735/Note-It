@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Note It</string>
-    <string name="drawer_header">Navigation View</string>
+    <string name="drawer_header">Menu</string>
 </resources>

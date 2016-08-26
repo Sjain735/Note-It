@@ -79,6 +79,7 @@ public class new_note extends AppCompatActivity implements View.OnClickListener 
             db.close();
 
             Toast.makeText(this,"Note Saved!",Toast.LENGTH_SHORT).show();
+            finish();
 
         }//If
     }//onClickListener

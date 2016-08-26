@@ -48,6 +48,8 @@ public class deleted extends AppCompatActivity {
 
                         }
                     }));
-        }
-    }
-}
+        }//If
+
+    }//onCreate
+
+}//End of class
