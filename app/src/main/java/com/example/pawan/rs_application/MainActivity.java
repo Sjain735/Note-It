@@ -12,8 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import static android.view.View.GONE;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -21,22 +21,28 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     RAdapter rAdapter;
     Menu menu;
     String note[];
-//    NavigationView nv = null;
+    ImageView del;
+    NavigationView nv = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
-        NavigationView nv = (NavigationView) findViewById(R.id.nav_view);
+
+        nv = (NavigationView) findViewById(R.id.nav_view);
         if (nv != null) {
             nv.setNavigationItemSelectedListener(this);
         }
 
-*/
+        del = (ImageView) findViewById(R.id.main_del);
+        if (del != null) {
+            del.setOnClickListener(this);
+            del.setVisibility(View.GONE);
+        }
+/*
         final MenuItem item_del = menu.findItem(R.id.toolbar_trash);
         item_del.setVisible(false);
-
+*/
         add = (FloatingActionButton) findViewById(R.id.add_note);
         if (add != null) {
             add.setOnClickListener(this);
@@ -73,10 +79,15 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
                 @Override
                     public void onLongItemClick(View view, int position) {
-                    item_del.setVisible(true);
+                   // item_del.setVisible(true);
+                    del.setVisibility(View.VISIBLE);
                     DBHandler db = new DBHandler(getApplicationContext());
                     note = db.get_single_note(position);
                     db.close();
+                    Toast.makeText(getApplicationContext(),note[0],Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),note[1],Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),note[2],Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),note[3],Toast.LENGTH_SHORT).show();
                 }
             }));
         }
@@ -97,6 +108,11 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             startActivity(intent);
         }
 
+        if (v.getId()==R.id.main_del){
+            DBHandler db = new DBHandler(getApplicationContext());
+            db.delete_note(note[2],note[3]);
+            db.close();
+        }
     }
 
     @Override
@@ -104,16 +120,16 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         int id = item.getItemId();
 
         if (id==R.id.nav_notes){
-/*
+
             Intent intent = new Intent(this,MainActivity.class);
             startActivity(intent);
-*/
+
         }else if(id==R.id.nav_trash){
 
             Intent intent = new Intent(this,deleted.class);
             startActivity(intent);
 
-        }/*else if(id==R.id.nav_settings){
+        }else if(id==R.id.nav_settings){
 
             Intent intent = new Intent(this,new_note.class);
             startActivity(intent);
@@ -122,9 +138,9 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
             Intent intent = new Intent(this,new_note.class);
             startActivity(intent);
-        }*/
+        }
         return true;
-    }// End of NavigationItem
+    }// End of NavigationItemSelected
 
     @Override
         public boolean onCreateOptionsMenu(Menu menu){
@@ -137,14 +153,14 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
-
+/*
         if (id == R.id.toolbar_trash){
             DBHandler db = new DBHandler(getApplicationContext());
             db.delete_note(note[2],note[3]);
             db.close();
             return true;
         }
-
+*/
         return super.onOptionsItemSelected(item);
     }
 
