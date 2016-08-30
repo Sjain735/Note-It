@@ -3,6 +3,7 @@ package com.example.pawan.rs_application;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 public class open_note extends AppCompatActivity {
@@ -14,11 +15,12 @@ public class open_note extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_note);
 
-        Intent in = getIntent();
-        int pos = in.getIntExtra("Position",1);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
 
-        DBHandler db = new DBHandler(getApplicationContext());
-        String[] notes = db.get_single_note(pos);
+        Intent in = getIntent();
+        String[] notes = in.getStringArrayExtra("Note");
+
 
         T_name = (TextView) findViewById(R.id.open_note_title);
         if (T_name != null) {
@@ -39,6 +41,5 @@ public class open_note extends AppCompatActivity {
         if (T_date != null) {
             T_date.setText(notes[3]);
         }
-        db.close();
     }
 }

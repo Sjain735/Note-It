@@ -84,14 +84,20 @@ public class DBHandler extends SQLiteOpenHelper {
     public void delete_note(String Date, String Time) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String select_query = "Select * from " + TABLE_NOTES + " where " + KEY_DATE + " = " + Date + " AND " + KEY_TIME + " = " + Time;
-        String query = "delete from " + TABLE_NOTES + " where " + KEY_DATE + " = " + Date + " AND " + KEY_TIME + " = " + Time;
-
+        String select_query = "Select * from " + TABLE_NOTES + " where " + KEY_DATE + " = '" + Date + "' AND " + KEY_TIME + " = '" + Time + "'";
+        String query = "delete from " + TABLE_NOTES + " where " + KEY_DATE + " = '" + Date + "' AND " + KEY_TIME + " = '" + Time + "'";
         Cursor csr1 = db.rawQuery(select_query,null);
-
-        new_del_note(csr1.getString(0),csr1.getString(1),csr1.getString(2),csr1.getString(3));
-
         Cursor csr = db.rawQuery(query, null);
+
+        csr1.moveToFirst();
+        csr.moveToFirst();
+
+        int count = csr1.getCount();
+        if (count > 0)
+        {
+            new_del_note(csr1.getString(0), csr1.getString(1), csr1.getString(3), csr1.getString(2));
+
+        }
 
         csr.close();
         csr1.close();
@@ -103,12 +109,16 @@ public class DBHandler extends SQLiteOpenHelper {
 
         String select_query = "Select * from " + DELETED_NOTES + " where " + KEY_DATE + " = " + Date + " AND " + KEY_TIME + " = " + Time;
         String query = "delete from " + DELETED_NOTES + " where " + KEY_DATE + " = " + Date + " AND " + KEY_TIME + " = " + Time;
-
         Cursor csr1 = db.rawQuery(select_query,null);
-
-        new_note(csr1.getString(0),csr1.getString(1),csr1.getString(3),csr1.getString(2));
-
         Cursor csr = db.rawQuery(query, null);
+        csr1.moveToFirst();
+        csr.moveToFirst();
+        int count = csr1.getCount();
+        if (count > 0)
+        {
+            new_note(csr1.getString(0),csr1.getString(1),csr1.getString(3),csr1.getString(2));
+
+        }
 
         csr.close();
         csr1.close();

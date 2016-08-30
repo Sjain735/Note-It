@@ -47,7 +47,7 @@ public class Del_RAdapter extends RecyclerView.Adapter<Del_RAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         DBHandler db = new DBHandler(r_context);
-        int note_count = db.get_count();
+        int note_count = db.get_del_count();
         db.close();
         return note_count;
     }

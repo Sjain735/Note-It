@@ -1,42 +1,35 @@
 package com.example.pawan.rs_application;
 
 import android.graphics.Color;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-
-import java.util.logging.LogRecord;
 
 public class new_note extends AppCompatActivity implements View.OnClickListener {
 
     LinearLayout linear1;
     EditText etext1,etext2;
-    ImageView save,save_grey;
+    ImageView save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_note);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+
         save = (ImageView) findViewById(R.id.new_save);
         if (save != null) {
             save.setOnClickListener(this);
-        }
-
-        save_grey = (ImageView) findViewById(R.id.new_save_grey);
-        if (save_grey != null) {
-            save_grey.setVisibility(View.GONE);
         }
 
         linear1 = (LinearLayout) findViewById(R.id.new_note_linear);
@@ -58,16 +51,10 @@ public class new_note extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v.getId()==R.id.new_save){
-            /*save_grey = (ImageView) findViewById(R.id.new_save_grey);
 
-            if (save_grey != null) {
-                save_grey.setVisibility(View.VISIBLE);
-                delay(2);
-                save_grey.setVisibility(View.GONE);
-            }*/
             Calendar c = Calendar.getInstance();
             SimpleDateFormat sdf_date = new SimpleDateFormat("dd-MMM-yyyy");
-            SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm:SS");
             String time = sdf_time.format(c.getTime());
             String date = sdf_date.format(c.getTime());
 
@@ -83,22 +70,5 @@ public class new_note extends AppCompatActivity implements View.OnClickListener 
 
         }//If
     }//onClickListener
-/*
-    public void delay(int seconds){
-        final int milliseconds = seconds * 1000;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final Handler handler = new Handler() {
-
-                };
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                }, milliseconds);
-            }
-        });
-    }//delay fn*/
 
 }//Class new_note

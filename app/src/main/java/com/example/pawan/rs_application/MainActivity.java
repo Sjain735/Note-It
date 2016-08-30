@@ -54,42 +54,38 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         final RecyclerView r_list = (RecyclerView) findViewById(R.id.main_recycler_view);
         rAdapter = new RAdapter(getApplicationContext());
         if (r_list != null) {
+
             r_list.setAdapter(rAdapter);
-        }
 
-        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-        if (r_list != null) {
+            LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
             r_list.setLayoutManager(llm);
-        }
-        if (r_list != null) {
+
             r_list.setItemAnimator(new DefaultItemAnimator());
-        }
 
-        if (r_list != null) {
             r_list.addOnItemTouchListener(
-              new R_ItemClickListener(getApplicationContext(), r_list,new R_ItemClickListener.OnItemClickListener() {
+                    new R_ItemClickListener(getApplicationContext(), r_list,new R_ItemClickListener.OnItemClickListener() {
 
-                @Override
-                    public void onItemClick(View view, int position) {
+                        @Override
+                        public void onItemClick(View view, int position) {
 
-                    Intent disp_note = new Intent(getApplicationContext(),open_note.class);
-                    disp_note.putExtra("Position",position);
-                    startActivity(disp_note);
-                }
+                            del.setVisibility(View.GONE);
+                            Intent disp_note = new Intent(getApplicationContext(),open_note.class);
+                            DBHandler db = new DBHandler(getApplicationContext());
+                            String[] notes = db.get_single_note(position);
+                            disp_note.putExtra("Note",notes);
+                            db.close();
+                            startActivity(disp_note);
+                        }
 
-                @Override
-                    public void onLongItemClick(View view, int position) {
-                   // item_del.setVisible(true);
-                    del.setVisibility(View.VISIBLE);
-                    DBHandler db = new DBHandler(getApplicationContext());
-                    note = db.get_single_note(position);
-                    db.close();
-                    Toast.makeText(getApplicationContext(),note[0],Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(),note[1],Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(),note[2],Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(),note[3],Toast.LENGTH_SHORT).show();
-                }
-            }));
+                        @Override
+                        public void onLongItemClick(View view, int position) {
+                            // item_del.setVisible(true);
+                            del.setVisibility(View.VISIBLE);
+                            DBHandler db = new DBHandler(getApplicationContext());
+                            note = db.get_single_note(position);
+                            db.close();
+                        }
+                    }));
         }
 
     }//End of onCreate
@@ -98,6 +94,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     protected void onResume(){
         super.onResume();
         rAdapter.notifyDataSetChanged();
+        del.setVisibility(View.GONE);
     }
 
     @Override
@@ -112,6 +109,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             DBHandler db = new DBHandler(getApplicationContext());
             db.delete_note(note[2],note[3]);
             db.close();
+            rAdapter.notifyDataSetChanged();
+            del.setVisibility(View.GONE);
         }
     }
 
@@ -131,19 +130,16 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         }else if(id==R.id.nav_settings){
 
-            Intent intent = new Intent(this,new_note.class);
-            startActivity(intent);
 
         }else if(id==R.id.nav_about){
 
-            Intent intent = new Intent(this,new_note.class);
-            startActivity(intent);
+
         }
         return true;
     }// End of NavigationItemSelected
 
     @Override
-        public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.icons_toolbar,menu);
         menu = this.menu;
         return true;
@@ -152,8 +148,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-/*
+/*        int id = item.getItemId();
+
         if (id == R.id.toolbar_trash){
             DBHandler db = new DBHandler(getApplicationContext());
             db.delete_note(note[2],note[3]);
