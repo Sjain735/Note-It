@@ -3,6 +3,8 @@ package com.example.pawan.rs_application;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     String note[];
     ImageView del;
     NavigationView nv = null;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         if (nv != null) {
             nv.setNavigationItemSelectedListener(this);
         }
+
+        drawer = (DrawerLayout) findViewById(R.id.main_drawer);
 
         del = (ImageView) findViewById(R.id.main_del);
         if (del != null) {
@@ -109,6 +114,23 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             DBHandler db = new DBHandler(getApplicationContext());
             db.delete_note(note[2],note[3]);
             db.close();
+
+            Snackbar snackbar = Snackbar
+                    .make(drawer, "Note Deleted!", Snackbar.LENGTH_LONG)
+                    .setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            DBHandler db1 = new DBHandler(getApplicationContext());
+                            db1.undo_delete_note(note[2],note[3]);
+                            db1.close();
+                            rAdapter.notifyDataSetChanged();
+                            Snackbar snackbar1 = Snackbar.make(drawer, "Note Restored!", Snackbar.LENGTH_SHORT);
+                            snackbar1.show();
+                        }
+                    });
+
+            snackbar.show();
+
             rAdapter.notifyDataSetChanged();
             del.setVisibility(View.GONE);
         }
@@ -133,6 +155,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         }else if(id==R.id.nav_about){
 
+            Intent intent = new Intent(this,about.class);
+            startActivity(intent);
 
         }
         return true;

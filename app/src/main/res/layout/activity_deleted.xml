@@ -18,6 +18,25 @@
         app:titleTextColor="@color/toolbarTitleColor"
         android:background="?attr/colorPrimary">
     </android.support.v7.widget.Toolbar>
+    
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/del_restore"
+        android:src="@drawable/ic_undo_black_24dp"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_margin="30dp"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/del_delete_forever"
+        android:src="@drawable/ic_delete_forever_black_24dp"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="100dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

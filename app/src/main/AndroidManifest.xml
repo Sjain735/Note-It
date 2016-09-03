@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pawan.rs_application" >
+    package="com.example.pawan.rs_application">
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon_5"
+        android:icon="@drawable/icon_7"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,8 +17,8 @@
         </activity>
         <activity android:name=".new_note" />
         <activity android:name=".open_note" />
-        <activity android:name=".deleted" >
-        </activity>
+        <activity android:name=".deleted"></activity>
+        <activity android:name=".about"></activity>
     </application>
 
 </manifest>

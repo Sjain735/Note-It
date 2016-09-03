@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBHandler extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 10;
+    private static final int DB_VERSION = 11;
     private static final String DB_NAME = "DATABASE";
     private static final String TABLE_NOTES = "NOTES";
     private static final String DELETED_NOTES = "Deleted_Notes";
@@ -107,8 +107,8 @@ public class DBHandler extends SQLiteOpenHelper {
     public void undo_delete_note(String Date, String Time) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String select_query = "Select * from " + DELETED_NOTES + " where " + KEY_DATE + " = " + Date + " AND " + KEY_TIME + " = " + Time;
-        String query = "delete from " + DELETED_NOTES + " where " + KEY_DATE + " = " + Date + " AND " + KEY_TIME + " = " + Time;
+        String select_query = "Select * from " + DELETED_NOTES + " where " + KEY_DATE + " = '" + Date + "' AND " + KEY_TIME + " = '" + Time + "'";
+        String query = "delete from " + DELETED_NOTES + " where " + KEY_DATE + " = '" + Date + "' AND " + KEY_TIME + " = '" + Time + "'";
         Cursor csr1 = db.rawQuery(select_query,null);
         Cursor csr = db.rawQuery(query, null);
         csr1.moveToFirst();
@@ -122,6 +122,14 @@ public class DBHandler extends SQLiteOpenHelper {
 
         csr.close();
         csr1.close();
+        db.close();
+    }
+
+    public void delete_forever(String Date, String Time){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "delete from " + DELETED_NOTES + " where " + KEY_DATE + " = '" + Date + "' AND " + KEY_TIME + " = '" + Time + "'";
+        Cursor csr = db.rawQuery(query, null);
+        csr.close();
         db.close();
     }
 

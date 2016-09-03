@@ -10,11 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
-public class deleted extends AppCompatActivity {
+public class deleted extends AppCompatActivity implements View.OnClickListener {
 
     Del_RAdapter rAdapter;
     NavigationView nv;
+    ImageView del_forever,restore;
+    String[] note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,17 @@ public class deleted extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+
+        del_forever = (ImageView) findViewById(R.id.del_delete_forever);
+        if (del_forever != null) {
+            del_forever.setOnClickListener(this);
+            del_forever.setVisibility(View.GONE);
+        }
+        restore = (ImageView) findViewById(R.id.del_restore);
+        if (restore != null) {
+            restore.setOnClickListener(this);
+            restore.setVisibility(View.GONE);
+        }
 
         final RecyclerView r_del_list = (RecyclerView) findViewById(R.id.del_rec_view);
         rAdapter = new Del_RAdapter(getApplicationContext());
@@ -41,6 +55,8 @@ public class deleted extends AppCompatActivity {
                         @Override
                         public void onItemClick(View view, int position) {
 
+                            del_forever.setVisibility(View.GONE);
+                            restore.setVisibility(View.GONE);
                             Intent disp_note = new Intent(getApplicationContext(),open_note.class);
                             DBHandler db = new DBHandler(getApplicationContext());
                             String[] notes = db.get_del_single_note(position);
@@ -52,10 +68,45 @@ public class deleted extends AppCompatActivity {
                         @Override
                         public void onLongItemClick(View view, int position) {
 
+                            del_forever.setVisibility(View.VISIBLE);
+                            restore.setVisibility(View.VISIBLE);
+                            DBHandler db = new DBHandler(getApplicationContext());
+                            note = db.get_del_single_note(position);
+                            db.close();
                         }
                     }));
         }//If
 
     }//onCreate
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        rAdapter.notifyDataSetChanged();
+        del_forever.setVisibility(View.GONE);
+        restore.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.del_delete_forever){
+            DBHandler db = new DBHandler(getApplicationContext());
+            db.delete_forever(note[2],note[3]);
+            db.close();
+
+            rAdapter.notifyDataSetChanged();
+            del_forever.setVisibility(View.GONE);
+            restore.setVisibility(View.GONE);
+        }
+
+        if (v.getId()==R.id.del_restore){
+            DBHandler db = new DBHandler(getApplicationContext());
+            db.undo_delete_note(note[2],note[3]);
+            db.close();
+
+            rAdapter.notifyDataSetChanged();
+            del_forever.setVisibility(View.GONE);
+            restore.setVisibility(View.GONE);
+        }
+    }
 }//End of class
