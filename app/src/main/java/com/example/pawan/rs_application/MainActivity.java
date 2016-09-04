@@ -152,6 +152,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         }else if(id==R.id.nav_settings){
 
+            Intent intent = new Intent(this,settings.class);
+            startActivity(intent);
 
         }else if(id==R.id.nav_about){
 

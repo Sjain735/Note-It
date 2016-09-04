@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/aboutBackground"
+    android:background="@color/mainColor"
     tools:context="com.example.pawan.rs_application.about">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/main_toolbar"
+        android:id="@+id/about_toolbar"
         android:minHeight="?attr/actionBarSize"
         app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
         app:title="About"
@@ -27,7 +27,7 @@
         android:layout_height="100dp"
         android:scaleType="centerCrop"
         android:layout_centerInParent="true"
-        android:src="@drawable/icon_7"/>
+        android:src="@drawable/icon_8"/>
 
     <TextView
         android:layout_width="wrap_content"
