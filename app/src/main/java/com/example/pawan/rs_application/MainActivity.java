@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     Menu menu;
     String note[];
     ImageView del;
+    MenuItem item_del;
     NavigationView nv = null;
     DrawerLayout drawer;
 
@@ -44,10 +45,13 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             del.setOnClickListener(this);
             del.setVisibility(View.GONE);
         }
-/*
-        final MenuItem item_del = menu.findItem(R.id.toolbar_trash);
-        item_del.setVisible(false);
-*/
+
+        item_del = menu.findItem(R.id.toolbar_trash);
+        if (item_del != null){
+            item_del.setVisible(false);
+        }
+
+
         add = (FloatingActionButton) findViewById(R.id.add_note);
         if (add != null) {
             add.setOnClickListener(this);
@@ -84,7 +88,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
                         @Override
                         public void onLongItemClick(View view, int position) {
-                            // item_del.setVisible(true);
+                            item_del.setVisible(true);
                             del.setVisibility(View.VISIBLE);
                             DBHandler db = new DBHandler(getApplicationContext());
                             note = db.get_single_note(position);
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         super.onResume();
         rAdapter.notifyDataSetChanged();
         del.setVisibility(View.GONE);
+        item_del.setVisible(false);
     }
 
     @Override
@@ -133,6 +138,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
             rAdapter.notifyDataSetChanged();
             del.setVisibility(View.GONE);
+            item_del.setVisible(false);
         }
     }
 
@@ -174,15 +180,16 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-/*        int id = item.getItemId();
+       int id = item.getItemId();
 
         if (id == R.id.toolbar_trash){
-            DBHandler db = new DBHandler(getApplicationContext());
+            Toast.makeText(getApplicationContext(),"Key Working",Toast.LENGTH_SHORT).show();
+/*            DBHandler db = new DBHandler(getApplicationContext());
             db.delete_note(note[2],note[3]);
             db.close();
-            return true;
+*/            return true;
         }
-*/
+
         return super.onOptionsItemSelected(item);
     }
 
