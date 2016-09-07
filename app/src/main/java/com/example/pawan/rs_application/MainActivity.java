@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             del.setVisibility(View.GONE);
         }
 
-        item_del = menu.findItem(R.id.toolbar_trash);
         if (item_del != null){
             item_del.setVisible(false);
         }
@@ -174,6 +173,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.icons_toolbar,menu);
         menu = this.menu;
+        item_del = menu.findItem(R.id.toolbar_trash);
         return true;
     }
 
