@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     Menu menu;
     String note[];
     ImageView del;
-    MenuItem item_del;
+   // MenuItem item_del;
     NavigationView nv = null;
     DrawerLayout drawer;
 
@@ -45,11 +44,11 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             del.setOnClickListener(this);
             del.setVisibility(View.GONE);
         }
-
+/*
         if (item_del != null){
             item_del.setVisible(false);
         }
-
+*/
 
         add = (FloatingActionButton) findViewById(R.id.add_note);
         if (add != null) {
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
                         @Override
                         public void onLongItemClick(View view, int position) {
-                            item_del.setVisible(true);
+                          //  item_del.setVisible(true);
                             del.setVisibility(View.VISIBLE);
                             DBHandler db = new DBHandler(getApplicationContext());
                             note = db.get_single_note(position);
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         super.onResume();
         rAdapter.notifyDataSetChanged();
         del.setVisibility(View.GONE);
-        item_del.setVisible(false);
+      //  item_del.setVisible(false);
     }
 
     @Override
@@ -128,8 +127,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                             db1.undo_delete_note(note[2],note[3]);
                             db1.close();
                             rAdapter.notifyDataSetChanged();
-                            Snackbar snackbar1 = Snackbar.make(drawer, "Note Restored!", Snackbar.LENGTH_SHORT);
-                            snackbar1.show();
+                            Snackbar sb = Snackbar.make(drawer, "Note Restored!", Snackbar.LENGTH_SHORT);
+                            sb.show();
                         }
                     });
 
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
             rAdapter.notifyDataSetChanged();
             del.setVisibility(View.GONE);
-            item_del.setVisible(false);
+           // item_del.setVisible(false);
         }
     }
 
@@ -173,7 +172,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.icons_toolbar,menu);
         menu = this.menu;
-        item_del = menu.findItem(R.id.toolbar_trash);
+     //   item_del = menu.findItem(R.id.toolbar_trash);
         return true;
     }
 
@@ -181,15 +180,15 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
        int id = item.getItemId();
-
+/*
         if (id == R.id.toolbar_trash){
             Toast.makeText(getApplicationContext(),"Key Working",Toast.LENGTH_SHORT).show();
-/*            DBHandler db = new DBHandler(getApplicationContext());
+            DBHandler db = new DBHandler(getApplicationContext());
             db.delete_note(note[2],note[3]);
             db.close();
-*/            return true;
+            return true;
         }
-
+*/
         return super.onOptionsItemSelected(item);
     }
 

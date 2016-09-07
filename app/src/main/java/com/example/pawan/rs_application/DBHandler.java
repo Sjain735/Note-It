@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBHandler extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 12;
     private static final String DB_NAME = "DATABASE";
     private static final String TABLE_NOTES = "NOTES";
     private static final String DELETED_NOTES = "Deleted_Notes";
@@ -92,12 +92,7 @@ public class DBHandler extends SQLiteOpenHelper {
         csr1.moveToFirst();
         csr.moveToFirst();
 
-        int count = csr1.getCount();
-        if (count > 0)
-        {
-            new_del_note(csr1.getString(0), csr1.getString(1), csr1.getString(3), csr1.getString(2));
-
-        }
+        new_del_note(csr1.getString(0), csr1.getString(1), csr1.getString(3), csr1.getString(2));
 
         csr.close();
         csr1.close();
@@ -113,12 +108,8 @@ public class DBHandler extends SQLiteOpenHelper {
         Cursor csr = db.rawQuery(query, null);
         csr1.moveToFirst();
         csr.moveToFirst();
-        int count = csr1.getCount();
-        if (count > 0)
-        {
-            new_note(csr1.getString(0),csr1.getString(1),csr1.getString(3),csr1.getString(2));
 
-        }
+        new_note(csr1.getString(0),csr1.getString(1),csr1.getString(3),csr1.getString(2));
 
         csr.close();
         csr1.close();
