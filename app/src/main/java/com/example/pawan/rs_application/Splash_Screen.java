@@ -20,7 +20,7 @@ public class Splash_Screen extends Activity {
             @Override
             public void run() {
 
-                Intent mainIntent = new Intent(Splash_Screen.this,Menu.class);
+                Intent mainIntent = new Intent(Splash_Screen.this,MainActivity.class);
                 Splash_Screen.this.startActivity(mainIntent);
                 Splash_Screen.this.finish();
             }
