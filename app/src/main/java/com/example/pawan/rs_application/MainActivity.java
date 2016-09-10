@@ -1,6 +1,7 @@
 package com.example.pawan.rs_application;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -48,8 +50,13 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         if (item_del != null){
             item_del.setVisible(false);
         }
-*/
 
+        TextView toolbarTitle = (TextView) findViewById(R.id.main_toolbar_title);
+        if (toolbarTitle != null) {
+            Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/You're Gone.ttf");
+            toolbarTitle.setTypeface(myFont);
+        }
+*/
         add = (FloatingActionButton) findViewById(R.id.add_note);
         if (add != null) {
             add.setOnClickListener(this);
@@ -100,6 +107,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     @Override
     protected void onResume(){
         super.onResume();
+        drawer.closeDrawers();
         rAdapter.notifyDataSetChanged();
         del.setVisibility(View.GONE);
       //  item_del.setVisible(false);
@@ -115,7 +123,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         if (v.getId()==R.id.main_del){
             DBHandler db = new DBHandler(getApplicationContext());
-            db.delete_note(note[2],note[3]);
+            db.delete_note(note[3],note[2]);
             db.close();
 
             Snackbar snackbar = Snackbar
@@ -124,7 +132,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                         @Override
                         public void onClick(View view) {
                             DBHandler db1 = new DBHandler(getApplicationContext());
-                            db1.undo_delete_note(note[2],note[3]);
+                            db1.undo_delete_note(note[3],note[2]);
                             db1.close();
                             rAdapter.notifyDataSetChanged();
                             Snackbar sb = Snackbar.make(drawer, "Note Restored!", Snackbar.LENGTH_SHORT);

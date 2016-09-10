@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBHandler extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 12;
+    private static final int DB_VERSION = 14;
     private static final String DB_NAME = "DATABASE";
     private static final String TABLE_NOTES = "NOTES";
     private static final String DELETED_NOTES = "Deleted_Notes";
@@ -31,8 +31,8 @@ public class DBHandler extends SQLiteOpenHelper {
         String CREATE_NOTES_TABLE = "Create Table " + TABLE_NOTES + "("
                 + KEY_NAME + " Text,"
                 + KEY_TEXT + " Text,"
-                + KEY_DATE + " Text,"
                 + KEY_TIME + " Text,"
+                + KEY_DATE + " Text,"
                 + "Primary Key( " + KEY_DATE + ", " + KEY_TIME + "))";
 
         db.execSQL(CREATE_NOTES_TABLE);
@@ -40,8 +40,8 @@ public class DBHandler extends SQLiteOpenHelper {
         String DELETE_NOTES = "Create Table " + DELETED_NOTES + "("
                 + KEY_NAME + " Text,"
                 + KEY_TEXT + " Text,"
-                + KEY_DATE + " Text,"
                 + KEY_TIME + " Text,"
+                + KEY_DATE + " Text,"
                 + "Primary Key( " + KEY_DATE + ", " + KEY_TIME + "))";
 
         db.execSQL(DELETE_NOTES);
@@ -68,7 +68,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void new_del_note(String Name, String Text, String Date, String Time) {
+    public void new_del_note(String Name, String Text, String Time, String Date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -92,7 +92,7 @@ public class DBHandler extends SQLiteOpenHelper {
         csr1.moveToFirst();
         csr.moveToFirst();
 
-        new_del_note(csr1.getString(0), csr1.getString(1), csr1.getString(3), csr1.getString(2));
+        new_del_note(csr1.getString(0), csr1.getString(1), csr1.getString(2), csr1.getString(3));
 
         csr.close();
         csr1.close();
@@ -109,7 +109,7 @@ public class DBHandler extends SQLiteOpenHelper {
         csr1.moveToFirst();
         csr.moveToFirst();
 
-        new_note(csr1.getString(0),csr1.getString(1),csr1.getString(3),csr1.getString(2));
+        new_note(csr1.getString(0),csr1.getString(1),csr1.getString(2),csr1.getString(3));
 
         csr.close();
         csr1.close();
@@ -148,6 +148,54 @@ public class DBHandler extends SQLiteOpenHelper {
         csr.close();
 
         return count;
+    }
+
+    public String[][] get_all_notes(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[][] notes = new String[4][];
+        String query = "SELECT * FROM " + TABLE_NOTES;
+        Cursor csr = db.rawQuery(query, null);
+        csr.moveToFirst();
+        int count = csr.getCount();
+        int i = 0;
+        while (count > 0) {
+                notes[0][i] = csr.getString(0);
+                notes[1][i] = csr.getString(1);
+                notes[2][i] = csr.getString(2);
+                notes[3][i] = csr.getString(3);
+
+            i++;
+            csr.moveToNext();
+            count--;
+        }
+        csr.close();
+        db.close();
+        return notes;
+    }
+
+    public String[][] get_del_all_notes(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[][] notes = new String[4][];
+        String query = "SELECT * FROM " + DELETED_NOTES;
+        Cursor csr = db.rawQuery(query, null);
+        csr.moveToFirst();
+        int count = csr.getCount();
+        int i = 0;
+        while (count > 0) {
+            notes[0][i] = csr.getString(0);
+            notes[1][i] = csr.getString(1);
+            notes[2][i] = csr.getString(2);
+            notes[3][i] = csr.getString(3);
+
+            i++;
+            csr.moveToNext();
+            count--;
+        }
+        csr.close();
+        db.close();
+        return notes;
     }
 
     public String[] get_single_note(int position){

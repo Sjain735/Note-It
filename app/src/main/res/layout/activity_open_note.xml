@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/openColor"
+    android:background="@color/mainColor"
     android:orientation="vertical"
     tools:context="com.example.pawan.rs_application.open_note">
 
@@ -32,7 +32,7 @@
             android:id="@+id/open_note_title"
             android:textColor="@android:color/black"
             android:paddingBottom="20dp"
-            android:textSize="24dp"
+            android:textSize="32dp"
             android:textStyle="bold"
             android:text="Title"/>
 
@@ -40,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true">
 
             <TextView
@@ -66,8 +67,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/open_note_content"
         android:padding="10dp"
-        android:textSize="18dp"
+        android:textSize="20dp"
         android:text="This is the content of your Note."
-        android:textColor="#ffff00"/>
+        android:textColor="#000000"/>
 
 </LinearLayout>

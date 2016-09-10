@@ -36,13 +36,16 @@ public class new_note extends AppCompatActivity implements View.OnClickListener 
 
         etext1 = new EditText(getApplicationContext());
         etext1.setHint("Enter Name");
-        etext1.setHintTextColor(Color.WHITE);
+        etext1.setPadding(5,5,0,0);
+        etext1.setHintTextColor(Color.BLACK);
         etext1.setTextColor(Color.BLACK);
         linear1.addView(etext1);
 
+
         etext2 = new EditText(getApplicationContext());
+        etext2.setPadding(5,32,0,0);
         etext2.setHint("Enter Text");
-        etext2.setHintTextColor(Color.WHITE);
+        etext2.setHintTextColor(Color.BLACK);
         etext2.setTextColor(Color.BLACK);
         linear1.addView(etext2);
 

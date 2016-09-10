@@ -6,7 +6,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/mainColor"
-    tools:context="com.example.pawan.rs_application.deleted">
+    tools:context="com.example.pawan.rs_application.deleted"
+    android:id="@+id/del_relative_layout">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/del_rec_view"
+        android:paddingTop="60dp">
+    </android.support.v7.widget.RecyclerView>
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -20,30 +28,24 @@
     </android.support.v7.widget.Toolbar>
     
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:id="@+id/del_restore"
-        android:src="@drawable/ic_undo_black_24dp"
-        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_undo_white_48dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="12dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_margin="30dp"/>
+        />
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:id="@+id/del_delete_forever"
-        android:src="@drawable/ic_delete_forever_black_24dp"
-        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_delete_forever_white_48dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="12dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="100dp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/del_rec_view"
-        android:paddingTop="60dp">
-    </android.support.v7.widget.RecyclerView>
-
+        />
 
 </RelativeLayout>

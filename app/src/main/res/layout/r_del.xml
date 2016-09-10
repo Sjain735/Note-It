@@ -5,13 +5,18 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
+    android:paddingRight="5dp"
+    android:paddingEnd="5dp"
+    android:paddingStart="5dp"
+    android:paddingLeft="5dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
     android:background="@color/mainColor">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        cardview:cardBackgroundColor="@color/delNoteColor"
+        cardview:cardBackgroundColor="@color/dispnoteColor"
         android:elevation="16dp"
         cardview:cardCornerRadius="12dp"
         cardview:cardUseCompatPadding="true">
@@ -23,8 +28,8 @@
             android:textColor="@android:color/black"
             android:layout_margin="5dp"
             android:padding="5dp"
-            android:text="Text 1"
             android:textStyle="bold"
+            android:text="Text 1"
             android:textSize="24dp"
             />
     </android.support.v7.widget.CardView>

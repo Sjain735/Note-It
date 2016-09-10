@@ -2,6 +2,7 @@ package com.example.pawan.rs_application;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class deleted extends AppCompatActivity implements View.OnClickListener {
 
@@ -18,6 +21,7 @@ public class deleted extends AppCompatActivity implements View.OnClickListener {
     NavigationView nv;
     ImageView del_forever,restore;
     String[] note;
+    RelativeLayout del_rel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class deleted extends AppCompatActivity implements View.OnClickListener {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+
+        del_rel = (RelativeLayout) findViewById(R.id.del_relative_layout);
 
         del_forever = (ImageView) findViewById(R.id.del_delete_forever);
         if (del_forever != null) {
@@ -91,8 +97,10 @@ public class deleted extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId()==R.id.del_delete_forever){
             DBHandler db = new DBHandler(getApplicationContext());
-            db.delete_forever(note[2],note[3]);
+            db.delete_forever(note[3],note[2]);
             db.close();
+
+            Toast.makeText(getApplicationContext(),"Note Deleted Permanently!",Toast.LENGTH_SHORT).show();
 
             rAdapter.notifyDataSetChanged();
             del_forever.setVisibility(View.GONE);
@@ -101,7 +109,7 @@ public class deleted extends AppCompatActivity implements View.OnClickListener {
 
         if (v.getId()==R.id.del_restore){
             DBHandler db = new DBHandler(getApplicationContext());
-            db.undo_delete_note(note[2],note[3]);
+            db.undo_delete_note(note[3],note[2]);
             db.close();
 
             rAdapter.notifyDataSetChanged();

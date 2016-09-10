@@ -2,12 +2,12 @@
 <resources>
     <color name="colorPrimary">#28B463</color>
     <color name="colorPrimaryDark">#1D8348</color>
-    <color name="colorAccent">#E0FF00</color>
-    <color name="mainColor">#ABEBC6</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="mainColor">#F5F5F5</color>
     <color name="addColor">#38ED38</color>
     <color name="openColor">#A3E4D7</color>
-    <color name="dispnoteColor">#F4D03F</color>
+    <color name="dispnoteColor">#67F4E4</color>
     <color name="delNoteColor">#FFA833</color>
-    <color name="toolbarTitleColor">#FFF333</color>
+    <color name="toolbarTitleColor">#000000</color>
     <color name="aboutBackground">#88EED6</color>
 </resources>
