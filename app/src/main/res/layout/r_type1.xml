@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         cardview:cardBackgroundColor="@color/dispnoteColor"
+        android:id="@+id/type1_cardview"
         android:elevation="16dp"
         cardview:cardCornerRadius="12dp"
         cardview:cardUseCompatPadding="true">

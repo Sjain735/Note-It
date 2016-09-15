@@ -1,5 +1,6 @@
 package com.example.pawan.rs_application;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
@@ -72,9 +73,10 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             r_list.setAdapter(rAdapter);
 
             LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+
             r_list.setLayoutManager(llm);
 
-            r_list.setItemAnimator(new DefaultItemAnimator());
+          //  r_list.setItemAnimator(new DefaultItemAnimator());
 
             r_list.addOnItemTouchListener(
                     new R_ItemClickListener(getApplicationContext(), r_list,new R_ItemClickListener.OnItemClickListener() {
@@ -108,7 +110,9 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     protected void onResume(){
         super.onResume();
         drawer.closeDrawers();
-        rAdapter.notifyDataSetChanged();
+        rAdapter.notifyItemInserted(rAdapter.getPosition());
+        rAdapter.notifyItemRemoved(rAdapter.getPosition());
+     //   rAdapter.notifyDataSetChanged();
         del.setVisibility(View.GONE);
       //  item_del.setVisible(false);
     }
@@ -134,7 +138,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                             DBHandler db1 = new DBHandler(getApplicationContext());
                             db1.undo_delete_note(note[3],note[2]);
                             db1.close();
-                            rAdapter.notifyDataSetChanged();
                             Snackbar sb = Snackbar.make(drawer, "Note Restored!", Snackbar.LENGTH_SHORT);
                             sb.show();
                         }
@@ -142,7 +145,9 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
             snackbar.show();
 
-            rAdapter.notifyDataSetChanged();
+            rAdapter.notifyItemInserted(rAdapter.getPosition());
+            rAdapter.notifyItemRemoved(rAdapter.getPosition());
+           // rAdapter.notifyDataSetChanged();
             del.setVisibility(View.GONE);
            // item_del.setVisible(false);
         }
