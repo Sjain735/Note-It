@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
    // MenuItem item_del;
     NavigationView nv = null;
     DrawerLayout drawer;
+    int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                         @Override
                         public void onLongItemClick(View view, int position) {
                           //  item_del.setVisible(true);
+                            pos = position;
                             del.setVisibility(View.VISIBLE);
                             DBHandler db = new DBHandler(getApplicationContext());
                             note = db.get_single_note(position);
@@ -130,6 +132,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             db.delete_note(note[3],note[2]);
             db.close();
 
+            rAdapter.notifyItemRemoved(pos);
+
             Snackbar snackbar = Snackbar
                     .make(drawer, "Note Deleted!", Snackbar.LENGTH_LONG)
                     .setAction("UNDO", new View.OnClickListener() {
@@ -140,13 +144,14 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                             db1.close();
                             Snackbar sb = Snackbar.make(drawer, "Note Restored!", Snackbar.LENGTH_SHORT);
                             sb.show();
+
+                            rAdapter.notifyItemInserted(pos);
                         }
                     });
 
             snackbar.show();
 
-            rAdapter.notifyItemInserted(rAdapter.getPosition());
-            rAdapter.notifyItemRemoved(rAdapter.getPosition());
+
            // rAdapter.notifyDataSetChanged();
             del.setVisibility(View.GONE);
            // item_del.setVisible(false);
